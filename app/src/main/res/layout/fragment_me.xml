@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.cloudray.sportogether.view.fragment.MeFragment"
     android:orientation="vertical">
 
@@ -19,6 +20,7 @@
         android:background="#aaaaaa"/>
 
     <LinearLayout
+        android:id="@+id/fragment_me_current_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -30,19 +32,24 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/now"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CURRENT"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
+
         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:background="#aaaaaa"
             android:layout_marginTop="10dp"/>
+
         <LinearLayout
+            android:id="@+id/fragment_me_history_event"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -50,7 +57,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/history2"
+                android:layout_marginTop="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,6 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp">
         <ImageView
             android:layout_width="30dp"
@@ -82,4 +92,336 @@
             android:layout_gravity="center_vertical"
             android:textSize="15sp"/>
     </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:id="@+id/fragment_me_nickname_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="NICKNAME"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/fragment_me_nickname_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_weight="0"
+                    android:src="@mipmap/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_me_nickname_edit_show"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:met_baseColor="#0056d3"
+                    app:met_primaryColor="#0056d3"
+                    app:met_maxCharacters="20"
+                    android:layout_marginRight="10dp"
+                    android:hint="new nickname" />
+                <Button
+                    android:id="@+id/fragment_me_nickname_edit_show_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:background="@drawable/shape_button_fragment_me"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:id="@+id/fragment_me_sports_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="INTERESTED SPORTS"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/fragment_me_sports_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_weight="0"
+                    android:src="@mipmap/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_me_sports_edit_show"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp">
+                    <CheckBox
+                        android:id="@+id/fragment_me_sports_edit_show_checkbox1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="basketball"
+                        android:layout_margin="2dp"/>
+                    <CheckBox
+                        android:id="@+id/fragment_me_sports_edit_show_checkbox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="football"
+                        android:layout_margin="2dp"/>
+                    <CheckBox
+                        android:id="@+id/fragment_me_sports_edit_show_checkbox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="running"
+                        android:layout_margin="2dp"/>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/fragment_me_sports_edit_show_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:background="@drawable/shape_button_fragment_me"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:id="@+id/fragment_me_age_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="AGE"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/fragment_me_age_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_weight="0"
+                    android:src="@mipmap/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_me_age_edit_show"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:met_baseColor="#0056d3"
+                    app:met_primaryColor="#0056d3"
+                    app:met_maxCharacters="20"
+                    android:layout_marginRight="10dp"
+                    android:inputType="number"
+                    android:hint="age" />
+                <Button
+                    android:id="@+id/fragment_me_age_edit_show_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:background="@drawable/shape_button_fragment_me"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:id="@+id/fragment_me_gender_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="GENDER"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/fragment_me_gender_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_weight="0"
+                    android:src="@mipmap/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_me_gender_edit_show"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <RadioGroup
+                    android:id="@+id/fragment_me_gender_edit_show_radiogroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp">
+                    <RadioButton
+                        android:id="@+id/fragment_me_gender_edit_show_radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="male"
+                        android:layout_margin="5dp"/>
+                    <RadioButton
+                        android:id="@+id/fragment_me_gender_edit_show_radio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="female"
+                        android:layout_margin="5dp"/>
+                    <RadioButton
+                        android:id="@+id/fragment_me_gender_edit_show_radio3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="other"
+                        android:layout_margin="5dp"/>
+                </RadioGroup>
+                <Button
+                    android:id="@+id/fragment_me_gender_edit_show_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:background="@drawable/shape_button_fragment_me"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+            <LinearLayout
+                android:id="@+id/fragment_me_intro_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="SELF_INTRO"
+                    android:textSize="16sp"/>
+                <ImageView
+                    android:id="@+id/fragment_me_intro_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_weight="0"
+                    android:src="@mipmap/arrow"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_me_intro_edit_show"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:met_baseColor="#0056d3"
+                    app:met_primaryColor="#0056d3"
+                    app:met_maxCharacters="140"
+                    android:layout_marginRight="10dp"
+                    android:hint="a word of yourself" />
+                <Button
+                    android:id="@+id/fragment_me_intro_edit_show_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="submit"
+                    android:background="@drawable/shape_button_fragment_me"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#aaaaaa"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

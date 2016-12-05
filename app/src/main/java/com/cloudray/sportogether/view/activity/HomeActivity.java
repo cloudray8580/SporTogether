@@ -1,7 +1,9 @@
 package com.cloudray.sportogether.view.activity;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -12,11 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.adapter.HomeActivityFragmentPagerAdapter;
+import com.cloudray.sportogether.tools.Blur;
+import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 import com.cloudray.sportogether.view.fragment.EventsFragment;
 import com.cloudray.sportogether.view.fragment.MeFragment;
 
@@ -79,6 +84,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 viewPager.setCurrentItem(0);
                 break;
             case R.id.bottom_navigation_bar_fast_participate:
+                // blur effect
+                LinearLayout view = (LinearLayout)findViewById(R.id.activity_home);
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+                Bitmap screen = Bitmap.createBitmap(view.getDrawingCache());
+                view.setDrawingCacheEnabled(false);
+                // scale, or it will be super slow
+                screen = Bitmap.createScaledBitmap(screen, screen.getWidth()/10, screen.getHeight()/10, false);
+                // do blur
+                screen = Blur.fastblur(this, screen, 5);
+                final ImageView imagecover = (ImageView)findViewById(R.id.activity_home_imagecover);
+                imagecover.setImageBitmap(screen);
+                imagecover.setVisibility(View.VISIBLE);
+
+                // show dialog
+                ConfirmPaticipateDialog dialog;
+                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(this, R.style.dialog). new Builder(this);
+                dialog = builder.create();
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        imagecover.setVisibility(View.GONE);
+                    }
+                });
+                dialog.show();
+
+                //Toast.makeText(this, "fast participate pressed!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.bottom_navigation_bar_me:
                 viewPager.setCurrentItem(1);
