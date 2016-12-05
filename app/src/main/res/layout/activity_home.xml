@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cloudray.sportogether.view.activity.HomeActivity"
-    android:orientation="vertical">
+    tools:context="com.cloudray.sportogether.view.activity.HomeActivity">
 
     <ImageView
         android:id="@+id/activity_home_imagecover"
@@ -15,16 +14,29 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/activity_home_viewpager"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>
 
     <include layout="@layout/navigation_bar_bottom"
         android:id="@+id/activity_home_bottom_navigation_bar"
-        android:layout_height="53dp"
-        android:layout_weight="0"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"/>
+        android:layout_height="53dp"
+        android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+    <com.gigamole.library.ShadowLayout
+        android:id="@+id/activity_home_shadowlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="63dp"
+        android:layout_marginRight="10dp">
+        <ImageView
+            android:id="@+id/activity_home_float_add_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/add2"/>
+    </com.gigamole.library.ShadowLayout>
+</RelativeLayout>

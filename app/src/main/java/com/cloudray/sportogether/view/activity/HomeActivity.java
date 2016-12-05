@@ -14,8 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
@@ -38,7 +42,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private List<Fragment> mFragmentList;
     private ViewPager viewPager;
     private FragmentPagerAdapter mFragmentPagerAdapter;
-    private LinearLayout eventButton, participateButton, meButton;
+    private LinearLayout eventButton, mapButton, meButton;
+    private ImageView floatButton;
+    private Animation clockwiseRotate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +67,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager)findViewById(R.id.activity_home_viewpager);
 
         eventButton = (LinearLayout)findViewById(R.id.bottom_navigation_bar_events);
-        participateButton = (LinearLayout)findViewById(R.id.bottom_navigation_bar_fast_participate);
+        mapButton = (LinearLayout)findViewById(R.id.bottom_navigation_bar_map);
         meButton = (LinearLayout)findViewById(R.id.bottom_navigation_bar_me);
+
+        floatButton = (ImageView)findViewById(R.id.activity_home_float_add_button);
     }
 
     public void setListener(){
         eventButton.setOnClickListener(this);
-        participateButton.setOnClickListener(this);
+        mapButton.setOnClickListener(this);
         meButton.setOnClickListener(this);
+        floatButton.setOnClickListener(this);
     }
 
     public void init(){
         mFragmentPagerAdapter = new HomeActivityFragmentPagerAdapter(this.getSupportFragmentManager(), mFragmentList);
         viewPager.setAdapter(mFragmentPagerAdapter);
         viewPager.setCurrentItem(0);
+
+        LinearInterpolator lin = new LinearInterpolator();
+
+        clockwiseRotate = AnimationUtils.loadAnimation(this,R.anim.rotate2);
+        clockwiseRotate.setInterpolator(lin);
     }
 
     @Override
@@ -83,9 +97,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bottom_navigation_bar_events:
                 viewPager.setCurrentItem(0);
                 break;
-            case R.id.bottom_navigation_bar_fast_participate:
+            case R.id.bottom_navigation_bar_map:
+                Intent intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bottom_navigation_bar_me:
+                viewPager.setCurrentItem(1);
+                break;
+            case R.id.activity_home_float_add_button:
+                // rotate
+                floatButton.startAnimation(clockwiseRotate);
+
                 // blur effect
-                LinearLayout view = (LinearLayout)findViewById(R.id.activity_home);
+                RelativeLayout view = (RelativeLayout)findViewById(R.id.activity_home);
                 view.setDrawingCacheEnabled(true);
                 view.buildDrawingCache();
                 Bitmap screen = Bitmap.createBitmap(view.getDrawingCache());
@@ -111,10 +135,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.show();
 
                 //Toast.makeText(this, "fast participate pressed!", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.bottom_navigation_bar_me:
-                viewPager.setCurrentItem(1);
-                break;
             default:
                 break;
         }

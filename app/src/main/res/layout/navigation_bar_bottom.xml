@@ -23,17 +23,22 @@
             android:textSize="12sp"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/bottom_navigation_bar_fast_participate"
+        android:id="@+id/bottom_navigation_bar_map"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_gravity="center_vertical">
+        android:gravity="center">
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@mipmap/plus_alt"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/location"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAP"
+            android:textSize="12sp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/bottom_navigation_bar_me"
