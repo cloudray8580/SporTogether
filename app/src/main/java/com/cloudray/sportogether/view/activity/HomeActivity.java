@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.adapter.HomeActivityFragmentPagerAdapter;
 import com.cloudray.sportogether.tools.Blur;
+import com.cloudray.sportogether.view.dialog.ChooseDialog;
 import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 import com.cloudray.sportogether.view.fragment.EventsFragment;
 import com.cloudray.sportogether.view.fragment.MeFragment;
@@ -123,8 +124,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 imagecover.setVisibility(View.VISIBLE);
 
                 // show dialog
-                ConfirmPaticipateDialog dialog;
-                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(this, R.style.dialog). new Builder(this);
+                ChooseDialog dialog;
+                ChooseDialog.Builder builder = new ChooseDialog(this, R.style.dialog). new Builder();
                 dialog = builder.create();
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override

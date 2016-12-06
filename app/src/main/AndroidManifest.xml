@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.HomeActivity" />
-        <activity android:name=".view.activity.HistoryEventActivity"></activity>
+        <activity android:name=".view.activity.HistoryEventActivity" />
+        <activity android:name=".view.activity.CreateNewEventActivity"></activity>
     </application>
 
 </manifest>
