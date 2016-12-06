@@ -1,6 +1,7 @@
 package com.cloudray.sportogether.view.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.cloudray.sportogether.R;
+import com.cloudray.sportogether.view.activity.HistoryEventActivity;
+import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,14 +45,15 @@ public class MeFragment extends Fragment implements View.OnClickListener{
     private OnFragmentInteractionListener mListener;
 
     //**************************************************************
-    private LinearLayout editNickname, editSports, editAge, editGender, editIntro;
-    private ImageView nicknameImage, sportsImage, ageImage, genderImage, introImage;
-    private LinearLayout nicknameShow, sportsShow, ageShow, genderShow, introShow;
-    private Button  nicknameButton,  sportsButton, ageButton, genderButton, introButton;
+    private LinearLayout editNickname, editSports, editAge, editGender, editPhone, editIntro;
+    private ImageView nicknameImage, sportsImage, ageImage, genderImage, phoneImage, introImage;
+    private LinearLayout nicknameShow, sportsShow, ageShow, genderShow, phoneShow, introShow;
+    private Button  nicknameButton,  sportsButton, ageButton, genderButton, phoneButton, introButton;
+    private MaterialEditText nicknameText, ageText, phoneText, introText;
     private RadioGroup radiogroup;
     private RadioButton maleRadio, femaleRadio, otherRadio;
     private CheckBox basketballCheckbox, footballCheckbox, runningCheckbox;
-
+    private LinearLayout currentEvent, historyEvent;
     private Animation clockwiseRotate, unclockwiseRotate;
 
     //**************************************************************
@@ -100,25 +105,34 @@ public class MeFragment extends Fragment implements View.OnClickListener{
         editSports = (LinearLayout)rootView.findViewById(R.id.fragment_me_sports_edit);
         editAge = (LinearLayout) rootView.findViewById(R.id.fragment_me_age_edit);
         editGender = (LinearLayout)rootView.findViewById(R.id.fragment_me_gender_edit);
+        editPhone = (LinearLayout)rootView.findViewById(R.id.fragment_me_phone_edit);
         editIntro = (LinearLayout)rootView.findViewById(R.id.fragment_me_intro_edit);
 
         nicknameShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_nickname_edit_show);
         sportsShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_sports_edit_show);
         ageShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_age_edit_show);
         genderShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_gender_edit_show);
+        phoneShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_phone_edit_show);
         introShow = (LinearLayout)rootView.findViewById(R.id.fragment_me_intro_edit_show);
 
         nicknameImage = (ImageView)rootView.findViewById(R.id.fragment_me_nickname_edit_image);
         sportsImage = (ImageView)rootView.findViewById(R.id.fragment_me_sports_edit_image);
         ageImage = (ImageView)rootView.findViewById(R.id.fragment_me_age_edit_image);
         genderImage = (ImageView)rootView.findViewById(R.id.fragment_me_gender_edit_image);
+        phoneImage = (ImageView)rootView.findViewById(R.id.fragment_me_phone_edit_image);
         introImage = (ImageView)rootView.findViewById(R.id.fragment_me_intro_edit_image);
 
         nicknameButton = (Button)rootView.findViewById(R.id.fragment_me_nickname_edit_show_button);
         sportsButton = (Button)rootView.findViewById(R.id.fragment_me_sports_edit_show_button);
         ageButton = (Button)rootView.findViewById(R.id.fragment_me_age_edit_show_button);
         genderButton = (Button)rootView.findViewById(R.id.fragment_me_gender_edit_show_button);
+        phoneButton = (Button)rootView.findViewById(R.id.fragment_me_phone_edit_show_button);
         introButton = (Button)rootView.findViewById(R.id.fragment_me_intro_edit_show_button);
+
+        nicknameText = (MaterialEditText)rootView.findViewById(R.id.fragment_me_nickname_edit_show_new);
+        ageText = (MaterialEditText)rootView.findViewById(R.id.fragment_me_age_edit_show_new);
+        phoneText = (MaterialEditText)rootView.findViewById(R.id.fragment_me_phone_edit_show_new);
+        introText = (MaterialEditText)rootView.findViewById(R.id.fragment_me_intro_edit_show_new);
 
         radiogroup = (RadioGroup)rootView.findViewById(R.id.fragment_me_gender_edit_show_radiogroup);
         maleRadio = (RadioButton)rootView.findViewById(R.id.fragment_me_gender_edit_show_radio1);
@@ -128,6 +142,9 @@ public class MeFragment extends Fragment implements View.OnClickListener{
         basketballCheckbox = (CheckBox)rootView.findViewById(R.id.fragment_me_sports_edit_show_checkbox1);
         footballCheckbox = (CheckBox)rootView.findViewById(R.id.fragment_me_sports_edit_show_checkbox2);
         runningCheckbox = (CheckBox)rootView.findViewById(R.id.fragment_me_sports_edit_show_checkbox3);
+
+        currentEvent = (LinearLayout)rootView.findViewById(R.id.fragment_me_current_event);
+        historyEvent = (LinearLayout)rootView.findViewById(R.id.fragment_me_history_event);
     }
 
     public void setListener(){
@@ -135,13 +152,18 @@ public class MeFragment extends Fragment implements View.OnClickListener{
         editSports.setOnClickListener(this);
         editAge.setOnClickListener(this);
         editGender.setOnClickListener(this);
+        editPhone.setOnClickListener(this);
         editIntro.setOnClickListener(this);
 
         nicknameButton.setOnClickListener(this);
         sportsButton.setOnClickListener(this);
         ageButton.setOnClickListener(this);
         genderButton.setOnClickListener(this);
+        phoneButton.setOnClickListener(this);
         introButton.setOnClickListener(this);
+
+        currentEvent.setOnClickListener(this);
+        historyEvent.setOnClickListener(this);
 
     }
 
@@ -228,6 +250,17 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                     genderShow.setVisibility(View.GONE);
                 }
                 break;
+            case R.id.fragment_me_phone_edit:
+                if(phoneShow.getVisibility()==View.GONE) {
+                    // nicknameImage.setRotation(90);
+                   phoneImage.startAnimation(clockwiseRotate);
+                   phoneShow.setVisibility(View.VISIBLE);
+                } else {
+                    // nicknameImage.setRotation(0);
+                    phoneImage.startAnimation(unclockwiseRotate);
+                    phoneShow.setVisibility(View.GONE);
+                }
+                break;
             case R.id.fragment_me_intro_edit:
                 if(introShow.getVisibility()==View.GONE) {
                     // nicknameImage.setRotation(90);
@@ -240,14 +273,31 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.fragment_me_nickname_edit_show_button:
+                String newNickName = nicknameText.getText().toString().trim();
+                // call setName? // set user
                 break;
             case R.id.fragment_me_sports_edit_show_button:
                 break;
             case R.id.fragment_me_age_edit_show_button:
+                String newAge = ageText.getText().toString().trim();
                 break;
             case R.id.fragment_me_gender_edit_show_button:
                 break;
+            case R.id.fragment_me_phone_edit_show_button:
+                String newPhone = phoneText.getText().toString().trim();
+                break;
             case R.id.fragment_me_intro_edit_show_button:
+                String newIntro = introText.getText().toString().trim();
+                break;
+            case R.id.fragment_me_current_event:
+                ConfirmPaticipateDialog dialog;
+                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(getActivity(), R.style.dialog). new Builder(getActivity());
+                dialog = builder.create();
+                dialog.show();
+                break;
+            case R.id.fragment_me_history_event:
+                Intent intent = new Intent(getActivity(), HistoryEventActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

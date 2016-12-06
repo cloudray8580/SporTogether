@@ -1,0 +1,107 @@
+{
+    "android_gradle_plugin_version": "2.2.2",
+    "apk_path": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\build\\outputs\\apk\\app-debug.apk",
+    "apt": {
+        
+    },
+    "apt_libraries": {
+        "dagger": false,
+        "butterknife": false
+    },
+    "auto_dependency": true,
+    "build_cache_dir": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\build\\freeline",
+    "build_directory": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\build",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "build_tools_directory": "D:\\androidSDK\\build-tools\\24.0.2",
+    "build_tools_version": "24.0.2",
+    "compile_sdk_directory": "D:\\androidSDK\\platforms\\android-24",
+    "compile_sdk_version": "android-24",
+    "databinding": [
+        
+    ],
+    "databinding_compiler_jar": "",
+    "databinding_modules": [
+        
+    ],
+    "debug_package": "com.cloudray.sportogether",
+    "exclude_dep_res_paths": [
+        
+    ],
+    "extra_dep_res_paths": [
+        
+    ],
+    "freeline_cache_dir": "C:\\Users\\Cloud\\Desktop\\SporTogether",
+    "freeline_gradle_plugin_version": "0.8.3",
+    "java_home": "D:\\java\\jdk",
+    "launcher": "com.cloudray.sportogether.view.activity.LoginActivity",
+    "main_assets_directory": [
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\assets",
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\assets"
+    ],
+    "main_jniLibs_directory": [
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\jniLibs",
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\jniLibs"
+    ],
+    "main_jni_directory": [
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\jni",
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\jni"
+    ],
+    "main_manifest_path": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\AndroidManifest.xml",
+    "main_project_dir": "app",
+    "main_project_name": "app",
+    "main_r_path": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "main_res_directory": [
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\res",
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\res"
+    ],
+    "main_src_directory": [
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\java",
+        "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\java"
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app"
+        }
+    ],
+    "package": "com.cloudray.sportogether",
+    "product_flavor": "",
+    "project_source_sets": {
+        "app": {
+            "main_assets_directory": [
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\assets",
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\assets"
+            ],
+            "main_jniLibs_directory": [
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\jniLibs",
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\jniLibs"
+            ],
+            "main_jni_directory": [
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\jni",
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\jni"
+            ],
+            "main_manifest_path": "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\AndroidManifest.xml",
+            "main_res_directory": [
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\res",
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\res"
+            ],
+            "main_src_directory": [
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\debug\\java",
+                "C:\\Users\\Cloud\\Desktop\\SporTogether\\app\\src\\main\\java"
+            ]
+        }
+    },
+    "project_type": "gradle",
+    "retrolambda": {
+        
+    },
+    "root_dir": "C:\\Users\\Cloud\\Desktop\\SporTogether",
+    "sdk_directory": "D:\\androidSDK",
+    "use_jdk8": true
+}

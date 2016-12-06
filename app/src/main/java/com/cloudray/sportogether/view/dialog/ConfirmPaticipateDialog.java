@@ -17,16 +17,31 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cloudray.sportogether.R;
+import com.cloudray.sportogether.model.Event;
 
 /**
  * Created by Cloud on 2016/11/26.
  */
 
 public class ConfirmPaticipateDialog extends Dialog {
+
+    Event event;
+    TextView typeText, needText, spotText, timeText, hostText, callText, descriptionText, joinText;
+
     public ConfirmPaticipateDialog(Context context, int theme) {
         super(context, theme);
+    }
+
+    public ConfirmPaticipateDialog(Context context, int theme, Event event){
+        super(context, theme);
+        this.event = event;
+    }
+
+    public void setEvent(Event event){
+        this.event = event;
     }
 
     public class Builder{
@@ -61,7 +76,6 @@ public class ConfirmPaticipateDialog extends Dialog {
 //            view.buildDrawingCache();
 //            Bitmap screen = Bitmap.createBitmap(view.getDrawingCache());
 //            view.setDrawingCacheEnabled(false);
-//
 //            screen = MyBlurEffect(screen);
 
             dialog = getDialog();
@@ -70,6 +84,9 @@ public class ConfirmPaticipateDialog extends Dialog {
 
 //            LinearLayout container = (LinearLayout)layout.findViewById(R.id.dialog_event_confirm_container);
 //            container.setBackground(new BitmapDrawable(context.getResources(), screen));
+
+            //findView(layout);
+            //setMyText();
 
             Window window = dialog.getWindow();
             WindowManager windowManager = (WindowManager)context.getSystemService(context.WINDOW_SERVICE);
@@ -87,6 +104,44 @@ public class ConfirmPaticipateDialog extends Dialog {
             return dialog;
         }
 
+        public void findView(View rootView){
+            typeText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_sport_type);
+            needText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_required_people_number);
+            spotText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_location);
+            timeText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_time);
+            hostText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_creator);
+            callText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_phone);
+            descriptionText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_description);
+            joinText = (TextView)rootView.findViewById(R.id.dialog_event_confirm_join);
+            joinText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // call join method
+                }
+            });
+        }
+
+        public void setMyText(){
+            switch (event.getType()){
+                case 1:
+                    typeText.setText("Basketball");
+                    break;
+                case 2:
+                    typeText.setText("Football");
+                    break;
+                case 3:
+                    typeText.setText("Running");
+                    break;
+                default:
+                    break;
+            }
+            needText.setText(event.getRequiredPlayerNumber());
+            spotText.setText(event.getLocation());
+            timeText.setText(event.getTime().toString());
+            hostText.setText(event.getUserName());
+            callText.setText(event.getPhone());
+            descriptionText.setText(event.getEventDescription());
+        }
 
         /*
         public Bitmap MyBlurEffect(Bitmap sentBitmap){

@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.model.Event;
+import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 
 import java.util.Date;
 import java.util.List;
@@ -69,6 +71,15 @@ public class EventListAdapter extends RecyclerView.Adapter {
         myHolder.requirePeople.setText(sportsPeople);
         myHolder.location.setText(sportsLocation);
         myHolder.time.setText(time.toString());
+        myHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmPaticipateDialog dialog;
+                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(context, R.style.dialog). new Builder(context);
+                dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     @Override
@@ -78,6 +89,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
+        LinearLayout container;
         ImageView sportType;
         TextView eventTitle;
         TextView requirePeople;
@@ -86,11 +98,24 @@ public class EventListAdapter extends RecyclerView.Adapter {
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            container = (LinearLayout)itemView.findViewById(R.id.listitem_events_container);
             sportType = (ImageView)itemView.findViewById(R.id.listitem_events_sport_type_image);
             eventTitle = (TextView)itemView.findViewById(R.id.listitem_events_title);
             requirePeople = (TextView)itemView.findViewById(R.id.listitem_events_require_people);
             location = (TextView)itemView.findViewById(R.id.listitem_events_location);
             time = (TextView)itemView.findViewById(R.id.listitem_events_time);
+
+            //container.setOnClickListener(this);// 怎么获取当前position？还是说直接传如属性值? 放在onBindView里?
         }
+
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId()){
+//                case R.id.listitem_events_container:
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
     }
 }

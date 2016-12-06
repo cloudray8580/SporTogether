@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="@drawable/shape_listitem_event">
+    android:background="@drawable/shape_listitem_event"
+    android:id="@+id/listitem_events_container">
 
     <LinearLayout
         android:layout_width="match_parent"

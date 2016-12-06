@@ -115,9 +115,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Bitmap screen = Bitmap.createBitmap(view.getDrawingCache());
                 view.setDrawingCacheEnabled(false);
                 // scale, or it will be super slow
-                screen = Bitmap.createScaledBitmap(screen, screen.getWidth()/10, screen.getHeight()/10, false);
+                screen = Bitmap.createScaledBitmap(screen, screen.getWidth()/20, screen.getHeight()/20, false);
                 // do blur
-                screen = Blur.fastblur(this, screen, 5);
+                screen = Blur.fastblur(this, screen, 20);
                 final ImageView imagecover = (ImageView)findViewById(R.id.activity_home_imagecover);
                 imagecover.setImageBitmap(screen);
                 imagecover.setVisibility(View.VISIBLE);
