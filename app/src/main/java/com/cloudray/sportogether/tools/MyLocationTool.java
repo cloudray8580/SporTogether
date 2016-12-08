@@ -20,21 +20,21 @@ public class MyLocationTool {
     private Location location;
     private String provider;
 
-    public void init(Context context){
+    public Location getLocation(Context context){
         locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         provider = judgeProvider();
         if (provider != null){
             if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                return;
+                return null;
             location = locationManager.getLastKnownLocation(provider);
             if (location != null){
-                location.getLongitude();
-                location.getLatitude();
+                return location;
             } else {
                 // can not get current location
             }
         }
+        return location;
     }
 
     public String judgeProvider(){
@@ -47,4 +47,5 @@ public class MyLocationTool {
             return null;
         }
     }
+
 }

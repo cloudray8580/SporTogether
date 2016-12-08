@@ -68,7 +68,7 @@ public class HistoryEventActivity extends AppCompatActivity {
         myEvent.setEventTitle("Let's play basketball!");
         myEvent.setLocation("School gym in LG1");
         myEvent.setEventDescription("welcome everyone here");
-        myEvent.setTime(new Date());
+        myEvent.setTime("19: 00");
         myEvent.setValid(true);
 
         List<Event> testList = new ArrayList<Event>();

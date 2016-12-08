@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cloudray.sportogether.view.activity.CreateNewEventActivity"
     android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -66,24 +67,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TIME: "/>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/activity_create_new_event_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="date"
-                    android:hint="time"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="TITLE: "/>
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/activity_create_new_event_title"
@@ -102,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NEED: "/>
-                <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/activity_create_new_event_required_people_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -127,6 +110,15 @@
                     android:layout_weight="1"
                     android:hint="location"/>
             </LinearLayout>
+
+            <TimePicker
+                android:id="@+id/activity_create_new_event_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp">
+
+            </TimePicker>
 
             <RadioGroup
                 android:id="@+id/activity_create_new_event_radiogroup"

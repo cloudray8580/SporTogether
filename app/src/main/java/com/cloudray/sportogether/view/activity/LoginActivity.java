@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button registerButton;
     EditText usernameText, passwordText;
     Retrofit retrofit;
+    CheckBox remember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
        // initRetrofit();
         findView();
         setListener();
+        init();
+    }
+
+    public void init(){
+        if(remember.isChecked()){
+            String username, password;
+            if((username = (String)MySharedPreference.getData(this, "username", "")) != ""){
+                usernameText.setText(username);
+                remember.setChecked(true);
+            }
+        }
     }
 
     public void initRetrofit(){
@@ -49,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         registerButton = (Button)findViewById(R.id.activity_login_button_register);
         usernameText = (EditText)findViewById(R.id.activity_login_username);
         passwordText = (EditText)findViewById(R.id.activity_login_password);
+        remember = (CheckBox)findViewById(R.id.activity_login_remember_account_checkbox);
     }
 
     public void setListener(){

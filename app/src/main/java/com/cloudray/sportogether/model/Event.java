@@ -22,7 +22,7 @@ public class Event implements Serializable {
 
     private int type; // 1:basketball 2:football 3:run
 
-    private Date time;
+    private String time;
 
     private String location;
 
@@ -48,6 +48,14 @@ public class Event implements Serializable {
 
     public void setParticipatorsId(List<String> participatorsId) {
         this.participatorsId = participatorsId;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getPhone() {
@@ -138,13 +146,6 @@ public class Event implements Serializable {
         isValid = valid;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 
     public String getLocation() {
         return location;

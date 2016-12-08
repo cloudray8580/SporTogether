@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.adapter.EventListAdapter;
@@ -33,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link EventsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EventsFragment extends Fragment implements Callback<Event> {
+public class EventsFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,6 +95,18 @@ public class EventsFragment extends Fragment implements Callback<Event> {
 //        retrofit = new Retrofit.Builder().baseUrl("").addConverterFactory(GsonConverterFactory.create()).build();
 //        service = retrofit.create(EventService.class);
 //        Call<List<Event>> call = service.getAllEvents();
+//        call.enqueue(new Callback<List<Event>>() {
+//            @Override
+//            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+//                data = response.body();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Event>> call, Throwable t) {
+//                Log.e("get local events", "net work failre");
+//                Toast.makeText(getContext(), "net work failure", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         getData();
         mAdapter = new EventListAdapter(getActivity(), data);
@@ -124,16 +138,6 @@ public class EventsFragment extends Fragment implements Callback<Event> {
         mListener = null;
     }
 
-    @Override
-    public void onResponse(Call<Event> call, Response<Event> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<Event> call, Throwable t) {
-
-    }
-
     // this is just used for test
     public void getData(){
         Event myEvent = new Event();
@@ -143,7 +147,7 @@ public class EventsFragment extends Fragment implements Callback<Event> {
         myEvent.setEventTitle("Let's play basketball!");
         myEvent.setLocation("School gym in LG1");
         myEvent.setEventDescription("welcome everyone here");
-        myEvent.setTime(new Date());
+        myEvent.setTime("19 : 00");
         myEvent.setValid(true);
 
         List<Event> testList = new ArrayList<Event>();

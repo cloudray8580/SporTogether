@@ -45,6 +45,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
             android:gravity="center"
             android:background="@drawable/shape_edittext_login"/>
         <EditText
@@ -52,24 +53,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:inputType="textPassword"
             android:hint="PASSWORD"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
             android:gravity="center"
             android:background="@drawable/shape_edittext_login"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/activity_login_forget_password"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="* Forget Password click here"
-        android:textColor="#ffffff"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/activity_login_info"/>
+        android:layout_below="@id/activity_login_info">
+        <TextView
+            android:id="@+id/activity_login_remember_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember Account"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="10dp" />
+        <CheckBox
+            android:id="@+id/activity_login_remember_account_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/activity_login_remember_account"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

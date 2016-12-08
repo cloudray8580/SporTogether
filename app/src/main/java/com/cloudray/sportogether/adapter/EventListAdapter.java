@@ -30,7 +30,7 @@ public class EventListAdapter extends RecyclerView.Adapter {
     private String sportsDescription;
     private String sportsPeople;
     private String sportsLocation;
-    private Date time;
+    private String time;
 
     public EventListAdapter(Context context, List<Event> data){
         this.context = context;
