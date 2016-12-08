@@ -38,4 +38,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.devlight.shadowlayout:library:1.0.0'
+    compile 'commons-codec:commons-codec:20041127.091804'
+    compile files('libs/commons-codec-1.10.jar')
 }

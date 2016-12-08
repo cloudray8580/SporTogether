@@ -6,6 +6,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
+import com.cloudray.sportogether.model.Event;
+import com.cloudray.sportogether.model.User;
+import com.cloudray.sportogether.network.service.EventService;
+import com.cloudray.sportogether.network.service.UserService;
+import com.cloudray.sportogether.tools.MySharedPreference;
 import com.cloudray.sportogether.view.activity.HistoryEventActivity;
 import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +71,10 @@ public class MeFragment extends Fragment implements View.OnClickListener{
     private CheckBox basketballCheckbox, footballCheckbox, runningCheckbox;
     private LinearLayout currentEvent, historyEvent;
     private Animation clockwiseRotate, unclockwiseRotate;
+    Retrofit retrofit;
+    UserService userService;
+    EventService eventService;
+    User user;
 
     //**************************************************************
 
@@ -94,10 +114,20 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_me, container, false);
+       // initRetrofit();
         findView(rootView);
         setListener();
         setAnimation();
         return rootView;
+    }
+
+    public void initRetrofit(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl("")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        userService = retrofit.create(UserService.class);
+        eventService = retrofit.create(EventService.class);
     }
 
     public void findView(View rootView){
@@ -274,26 +304,149 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.fragment_me_nickname_edit_show_button:
                 String newNickName = nicknameText.getText().toString().trim();
-                // call setName? // set user
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setNickname(newNickName);
+                Toast.makeText(getContext(), user.getUserName()+ " "+user.getPassword(),Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+                //Call<User> call1 = userService.updateUser(user);
+//                call1.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_sports_edit_show_button:
+                List<Integer> sportsInterested = new ArrayList<Integer>();
+                if(basketballCheckbox.isChecked())
+                    sportsInterested.add(1);
+                if(footballCheckbox.isChecked())
+                    sportsInterested.add(2);
+                if(runningCheckbox.isChecked())
+                    sportsInterested.add(3);
+
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setInterestedSprots(sportsInterested);
+                Toast.makeText(getContext(), user.getInterestedSprots()+ " ",Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+                //Call<User> call2 = userService.updateUser(user);
+//                call2.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_age_edit_show_button:
-                String newAge = ageText.getText().toString().trim();
+                String age = ageText.getText().toString().trim();
+                Integer ageInt = Integer.parseInt(age);
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setAge(ageInt);
+                Toast.makeText(getContext(), user.getAge()+ " ",Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+//                Call<User> call3 = userService.updateUser(user);
+//                call3.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_gender_edit_show_button:
+                int newGender = -1;
+                if(femaleRadio.isChecked())
+                    newGender = 0;
+                if(maleRadio.isChecked())
+                    newGender = 1;
+                if(otherRadio.isChecked())
+                    newGender = 2;
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setGender(newGender);
+                Toast.makeText(getContext(), user.getGender()+ " ",Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+//                Call<User> call4 = userService.updateUser(user);
+//                call4.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_phone_edit_show_button:
                 String newPhone = phoneText.getText().toString().trim();
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setPhone(newPhone);
+                Toast.makeText(getContext(), user.getPhone()+ " ",Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+//                Call<User> call5 = userService.updateUser(user);
+//                call5.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_intro_edit_show_button:
                 String newIntro = introText.getText().toString().trim();
+                user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
+                user.setSelfIntro(newIntro);
+                Toast.makeText(getContext(), user.getSelfIntro()+ " ",Toast.LENGTH_SHORT).show();
+                MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
+//                Call<User> call6 = userService.updateUser(user);
+//                call6.enqueue(new Callback<User>() {
+//                    @Override
+//                    public void onResponse(Call<User> call, Response<User> response) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<User> call, Throwable t) {
+//
+//                    }
+//                });
                 break;
             case R.id.fragment_me_current_event:
-                ConfirmPaticipateDialog dialog;
-                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(getActivity(), R.style.dialog). new Builder(getActivity());
-                dialog = builder.create();
-                dialog.show();
+                Call<Event> call7 = eventService.getCurrentEvents((String)MySharedPreference.getData(getContext(),"userid", ""));
+                call7.enqueue(new Callback<Event>() {
+                    @Override
+                    public void onResponse(Call<Event> call, Response<Event> response) {
+                        ConfirmPaticipateDialog dialog;
+                        ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(getActivity(), R.style.dialog). new Builder(getActivity());
+                        dialog = builder.create();
+                        dialog.setEvent(response.body());
+                        dialog.show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Event> call, Throwable t) {
+                        Log.e("get current event", "net work failure");
+                    }
+                });
                 break;
             case R.id.fragment_me_history_event:
                 Intent intent = new Intent(getActivity(), HistoryEventActivity.class);

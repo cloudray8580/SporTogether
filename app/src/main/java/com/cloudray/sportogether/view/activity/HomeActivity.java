@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,15 +25,23 @@ import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.adapter.HomeActivityFragmentPagerAdapter;
+import com.cloudray.sportogether.model.TestWechatMessage;
+import com.cloudray.sportogether.network.service.TestMessageService;
 import com.cloudray.sportogether.tools.Blur;
 import com.cloudray.sportogether.view.dialog.ChooseDialog;
 import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 import com.cloudray.sportogether.view.fragment.EventsFragment;
 import com.cloudray.sportogether.view.fragment.MeFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Path;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
@@ -106,6 +115,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 viewPager.setCurrentItem(1);
                 break;
             case R.id.activity_home_float_add_button:
+//                Log.e("getThread--in main: ", Thread.currentThread().toString());
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("http://10.89.185.54:8000/")
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                TestMessageService service = retrofit.create(TestMessageService.class);
+//                Call<TestWechatMessage> call2 = service.getToken("cloudray", "lalala");
+//                call2.enqueue(new Callback<TestWechatMessage>() {
+//                    @Override
+//                    public void onResponse(Call<TestWechatMessage> call, Response<TestWechatMessage> response) {
+//                        Log.e("getThread--in response ", Thread.currentThread().toString());
+//                        //TestWechatMessage message = (TestWechatMessage)response.body();
+//                        Toast.makeText(HomeActivity.this, response.body().errcode+" "+response.body().errmsg, Toast.LENGTH_SHORT).show();
+//                        Log.e("my_retrofit", response.body().errcode+"  "+response.body().errmsg);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<TestWechatMessage> call, Throwable t) {
+//                        Toast.makeText(HomeActivity.this, "request failure!", Toast.LENGTH_SHORT).show();
+//                        Log.e("my_retrofit", t.toString());
+//                    }
+//                });
+
                 // rotate
                 floatButton.startAnimation(clockwiseRotate);
 

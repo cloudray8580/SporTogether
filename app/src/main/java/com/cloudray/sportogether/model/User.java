@@ -2,13 +2,14 @@ package com.cloudray.sportogether.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Cloud on 2016/11/25.
  */
 
-public class User {
+public class User implements Serializable {
 
     @SerializedName("user_id")
     private String userId;
@@ -21,9 +22,26 @@ public class User {
 
     private int gender; // 0:female 1:male 2:others
 
-    private int age;
+    private int age; // use -1 to denote an invalid user
 
     private String phone;
+
+    private List<Integer> interestedSports; // 1:basketball 2:football 3:run
+
+    private String selfIntro;
+
+    public User(String username, String password){
+        this.userName = username;
+        this.password = password;
+    }
+
+    public String getSelfIntro() {
+        return selfIntro;
+    }
+
+    public void setSelfIntro(String selfIntro) {
+        this.selfIntro = selfIntro;
+    }
 
     public String getPhone() {
         return phone;
@@ -32,8 +50,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    private List<Integer> interestedSports;
     
     public List<Integer> getInterestedSprots() {
         return interestedSports;

@@ -2,6 +2,7 @@ package com.cloudray.sportogether.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by Cloud on 2016/11/25.
  */
 
-public class Event {
+public class Event implements Serializable {
 
     private String eventTitle;
 
@@ -38,6 +39,16 @@ public class Event {
     private String userName; // creator
 
     private String phone; // creator
+
+    private List<String> participatorsId;
+
+    public List<String> getParticipatorsId() {
+        return participatorsId;
+    }
+
+    public void setParticipatorsId(List<String> participatorsId) {
+        this.participatorsId = participatorsId;
+    }
 
     public String getPhone() {
         return phone;
