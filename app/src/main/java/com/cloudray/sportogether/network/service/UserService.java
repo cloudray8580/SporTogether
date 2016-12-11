@@ -16,14 +16,14 @@ import retrofit2.http.Query;
 public interface UserService {
 
     @GET("user/get")
-    Call<User> getUser(@Query("userid") String userid);
+    Call<User> getUser(@Query("user_id") String userid);
 
     @POST("user/login")
-    Call<User> login(@Body User user);
+    Call<User> login(@Query("user_id") String userid, @Query("user_pwd") String userpwd);
 
     @POST("user/add")
-    Call<User> addUser(@Body User user);
+    Call<User> addUser(@Query("request") String userobjectjson);
 
     @POST("user/update")
-    Call<User> updateUser(@Body User user);
+    Call<User> updateUser(@Query("user_id") String userid, @Query("update_field") String field, @Query("update_value") String value);
 }

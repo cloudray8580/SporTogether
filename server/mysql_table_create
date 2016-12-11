@@ -1,0 +1,41 @@
+CREATE TABLE user(
+
+user_id VARCHAR(40) NOT NULL,
+user_name VARCHAR(40) NOT NULL,
+user_pwd VARCHAR(100) NOT NULL,
+user_nickname VARCHAR(40) NOT NULL,
+user_gender INT,
+user_age INT,
+user_phone VARCHAR(20) NOT NULL,
+user_selfintro VARCHAR(400),
+PRIMARY KEY (user_id, user_name, user_phone)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE event(
+
+event_id INT NOT NULL AUTO_INCREMENT,
+event_title VARCHAR(100) NOT NULL,
+event_location VARCHAR(100) NOT NULL,
+event_location_x DOUBLE,
+event_location_y DOUBLE,
+event_description VARCHAR(400) NOT NULL,
+event_sporttype INT NOT NULL,
+event_requirednum INT NOT NULL,
+event_currentnum INT NOT NULL,
+event_time DATETIME NOT NULL,
+event_creatorid VARCHAR(40) NOT NULL,
+event_creatorname VARCHAR(40) NOT NULL,
+event_creatorphone VARCHAR(40) NOT NULL,
+event_isvalid INT NOT NULL,
+PRIMARY KEY (event_id)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE joinevent(
+
+join_user_id VARCHAR(40) NOT NULL,
+join_event_id INT NOT NULL,
+FOREIGN KEY (join_user_id) REFERENCES user(user_id),
+FOREIGN KEY (join_event_id) REFERENCES event(event_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

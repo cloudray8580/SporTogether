@@ -17,11 +17,15 @@ import retrofit2.http.Query;
 
 public interface EventService{
 
+
+    @GET("events/join")
+    Call<Event> joinEvent(@Query("user_id") String userid, @Query("event_id") int eventid);
+
     @GET("events")
     Call<List<Event>> getAllEvents();
 
     @GET("events/{event}")
-    Call<Event> getSpecificEvent(@Path("event") String path);
+    Call<Event> getSpecificEvent(@Path("request") String path);
 
     @GET("events/local")
     Call<List<Event>> getLocalEvents(@Query("locationX") double locationX, @Query("locationY") double locationY);
@@ -30,11 +34,11 @@ public interface EventService{
     Call<Event> getMostSuitableEvent(@Query("locationX") double locationX, @Query("locationY") double locationY, @Query("sportType") int sportType);
 
     @GET("events/history")
-    Call<List<Event>> getHistoryEvents(@Query("userid") String userid);
+    Call<List<Event>> getHistoryEvents(@Query("user_id") String userid);
 
     @GET("events/current")
-    Call<Event> getCurrentEvents(@Query("userid") String userid);
+    Call<Event> getCurrentEvents(@Query("user_id") String userid);
 
     @POST("events/add")
-    Call<Event> addEvent(@Body Event event);
+    Call<Event> addEvent(@Query("request") String eventobjectjson);
 }
