@@ -141,8 +141,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(this, R.style.dialog). new Builder(this);
         dialog = builder.create();
         Event event = new Event();
-        event.setLocation_x(marker.getPosition().longitude);
-        event.setLocation_y(marker.getPosition().latitude);
+        event.setEvent_location_x(marker.getPosition().longitude);
+        event.setEvent_location_y(marker.getPosition().latitude);
         dialog.setEvent(event);
         dialog.show();
         return false;

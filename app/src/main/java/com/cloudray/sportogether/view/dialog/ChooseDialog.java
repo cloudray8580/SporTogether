@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.model.Event;
@@ -33,16 +35,21 @@ public class ChooseDialog extends Dialog {
 
     Context context;
     int theme;
+    MyLocationTool myLocationTool;
 
     public ChooseDialog(Context context) {
         super(context);
         this.context = context;
+        myLocationTool = new MyLocationTool();
+        myLocationTool.initLocation(context);
     }
 
     public ChooseDialog(Context context, int theme){
         super(context, theme);
         this.context = context;
         this.theme = theme;
+        myLocationTool = new MyLocationTool();
+        myLocationTool.initLocation(context);
     }
 
     public class Builder{
@@ -83,26 +90,33 @@ public class ChooseDialog extends Dialog {
                 public void onClick(View v) {
                     // call to server
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://192.169.1.1")
+                            .baseUrl("http://52.43.221.21:8081/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
                     EventService service = retrofit.create(EventService.class);
-                    Location location = new MyLocationTool().getLocation(getContext());
-                    Call<Event> call = service.getMostSuitableEvent(location.getLongitude(), location.getLatitude(), (Integer)MySharedPreference.getData(context, "sportstype", 1));
+                    Location location = myLocationTool.getLocation();
+//                    if(location == null){
+//                        Toast.makeText(getContext(), "fail to get location. Try to create new event", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+                 //   Call<Event> call = service.getMostSuitableEvent(location.getLongitude(), location.getLatitude(), (Integer)MySharedPreference.getData(context, "sportstype", 1));
+                    Call<Event> call = service.getMostSuitableEvent(114.264390, 22.338120, (Integer)MySharedPreference.getData(context, "sportstype", 1));
                     call.enqueue(new Callback<Event>() {
                         @Override
                         public void onResponse(Call<Event> call, Response<Event> response) {
+                            Log.e("fast_join", response.body()+"");
                             ConfirmPaticipateDialog dialog;
                             ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(context, R.style.dialog). new Builder(context);
-                            dialog = builder.create();
+                            dialog = builder.getDialog();
                             dialog.setEvent(response.body());
+                            dialog = builder.create();
                             dialog.show();
-                            getDialog().cancel();
                         }
 
                         @Override
                         public void onFailure(Call<Event> call, Throwable t) {
-
+                            Log.e("fast_join", t.toString());
+                            Toast.makeText(getContext(), "fail to get suitable events, try to create new", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

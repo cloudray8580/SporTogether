@@ -92,25 +92,32 @@ public class EventsFragment extends Fragment{
         recyclerView = (RecyclerView)rootView.findViewById(R.id.fragment_event_list_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        retrofit = new Retrofit.Builder().baseUrl("").addConverterFactory(GsonConverterFactory.create()).build();
-//        service = retrofit.create(EventService.class);
-//        Call<List<Event>> call = service.getAllEvents();
-//        call.enqueue(new Callback<List<Event>>() {
-//            @Override
-//            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-//                data = response.body();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Event>> call, Throwable t) {
-//                Log.e("get local events", "net work failre");
-//                Toast.makeText(getContext(), "net work failure", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        retrofit = new Retrofit.Builder().baseUrl("http://52.43.221.21:8081/").addConverterFactory(GsonConverterFactory.create()).build();
+        service = retrofit.create(EventService.class);
+        Call<List<Event>> call = service.getAllEvents();
+        call.enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                data = response.body();
+                if(data == null || data.size() == 0){
+                    Log.e("event_fragment", "data no valid");
+                    recyclerView.setVisibility(View.GONE);
+                    return;
+                } else {
+                    mAdapter = new EventListAdapter(getActivity(), data);
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+            }
 
-        getData();
-        mAdapter = new EventListAdapter(getActivity(), data);
-        recyclerView.setAdapter(mAdapter);
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Log.e("get local events", "net work failre");
+                Toast.makeText(getContext(), "net work failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+       // getData();
         return rootView;
     }
 
@@ -139,23 +146,23 @@ public class EventsFragment extends Fragment{
     }
 
     // this is just used for test
-    public void getData(){
-        Event myEvent = new Event();
-        myEvent.setCurrentPlayerNumber(2);
-        myEvent.setRequiredPlayerNumber(5);
-        myEvent.setType(1);
-        myEvent.setEventTitle("Let's play basketball!");
-        myEvent.setLocation("School gym in LG1");
-        myEvent.setEventDescription("welcome everyone here");
-        myEvent.setTime("19 : 00");
-        myEvent.setValid(true);
-
-        List<Event> testList = new ArrayList<Event>();
-        for(int i = 0; i < 10; i++)
-            testList.add(myEvent);
-
-        data = testList;
-    }
+//    public void getData(){
+//        Event myEvent = new Event();
+//        myEvent.setCurrentPlayerNumber(2);
+//        myEvent.setRequiredPlayerNumber(5);
+//        myEvent.setType(1);
+//        myEvent.setEventTitle("Let's play basketball!");
+//        myEvent.setLocation("School gym in LG1");
+//        myEvent.setEventDescription("welcome everyone here");
+//        myEvent.setTime("19 : 00");
+//        myEvent.setValid(true);
+//
+//        List<Event> testList = new ArrayList<Event>();
+//        for(int i = 0; i < 10; i++)
+//            testList.add(myEvent);
+//
+//        data = testList;
+//    }
 
     /**
      * This interface must be implemented by activities that contain this

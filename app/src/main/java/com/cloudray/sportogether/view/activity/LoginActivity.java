@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-       // initRetrofit();
+        initRetrofit();
         findView();
         setListener();
         init();
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void initRetrofit(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("") // need to change
+                .baseUrl("http://52.43.221.21:8081/") // need to change
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -85,22 +85,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch(v.getId()){
             case R.id.activity_login_button_login:
-                String base64User = MySharedPreference.base64Encode(new User(username, password));
-                Log.e("my_base64_encoded: ", base64User);
-                MySharedPreference.storeData(LoginActivity.this, "user",  base64User);
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent1);
-                /*
+//                String base64User = MySharedPreference.base64Encode(new User(username, password));
+//                Log.e("my_base64_encoded: ", base64User);
+//                MySharedPreference.storeData(LoginActivity.this, "user",  base64User);
+//                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                startActivity(intent1);
+
                 if (checkValidate(username, password)){
                     // call login in
                     UserService service = retrofit.create(UserService.class);
-                    Call<User> call = service.login(new User(username, password));
+                    Call<User> call = service.login(username, password);
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            MySharedPreference.storeData(LoginActivity.this, "userid", response.body().getUserId());
-                            MySharedPreference.storeData(LoginActivity.this, "username", response.body().getUserName());
+                            Log.e("login_activity", response.body().toString());
+                            Log.e("login_activity", response.body().getUser_id()+"");
+                            Log.e("login_activity", response.body().getUser_name());
+                            Log.e("login_activity", response.body().getUser_pwd());
+                            MySharedPreference.storeData(LoginActivity.this, "userid", response.body().getUser_id());
+                            MySharedPreference.storeData(LoginActivity.this, "username", response.body().getUser_name());
                             MySharedPreference.storeData(LoginActivity.this, "user",  MySharedPreference.base64Encode(response.body()));
+                            Toast.makeText(LoginActivity.this, "login in success", Toast.LENGTH_SHORT).show();
                             Intent intent1 = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent1);
                         }
@@ -113,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     Toast.makeText(this, "user name or password empty", Toast.LENGTH_SHORT).show();
                 }
-                */
+
                 break;
             case R.id.activity_login_button_register:
                 if (checkValidate(username, password)){
@@ -123,15 +128,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
-                            MySharedPreference.storeData(LoginActivity.this, "userid", response.body().getUserId());
-                            MySharedPreference.storeData(LoginActivity.this, "username", response.body().getUserName());
+                            MySharedPreference.storeData(LoginActivity.this, "userid", response.body().getUser_id());
+                            MySharedPreference.storeData(LoginActivity.this, "username", response.body().getUser_name());
                             MySharedPreference.storeData(LoginActivity.this, "user",  MySharedPreference.base64Encode(response.body()));
+                            Toast.makeText(LoginActivity.this, "register success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "id: "+response.body().getUser_id(), Toast.LENGTH_SHORT).show();
+                            Log.e("login_activity", "id: "+ response.body());
+                            Log.e("login_activity", "id: "+ response.body().getUser_name());
+                            Log.e("login_activity", "id: "+ response.body().getUser_pwd());
                             Intent intent1 = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent1);
                         }
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
+                            Log.e("register fail:", t.toString());
                             Toast.makeText(LoginActivity.this, "register fail due to network", Toast.LENGTH_SHORT).show();
                         }
                     });

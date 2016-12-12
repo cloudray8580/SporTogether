@@ -30,11 +30,14 @@ public interface EventService{
     Call<Event> getMostSuitableEvent(@Query("locationX") double locationX, @Query("locationY") double locationY, @Query("sportType") int sportType);
 
     @GET("events/history")
-    Call<List<Event>> getHistoryEvents(@Query("userid") String userid);
+    Call<List<Event>> getHistoryEvents(@Query("user_id") int userid);
 
     @GET("events/current")
-    Call<Event> getCurrentEvents(@Query("userid") String userid);
+    Call<Event> getCurrentEvents(@Query("user_id") int userid);
 
     @POST("events/add")
     Call<Event> addEvent(@Body Event event);
+
+    @GET("events/join")
+    Call<Event> joinEvent(@Query("user_id") int userid, @Query("event_id") int eventid);
 }

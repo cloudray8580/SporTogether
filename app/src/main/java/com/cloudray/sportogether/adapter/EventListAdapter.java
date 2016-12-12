@@ -2,6 +2,7 @@ package com.cloudray.sportogether.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,15 +45,15 @@ public class EventListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myHolder = (MyViewHolder)holder;
 
-        sportsType = data.get(position).getType();
-        sportsTitle = data.get(position).getEventTitle();
-        sportsPeople = "Require People : " + data.get(position).getRequiredPlayerNumber();
-        sportsLocation = "Location : " + data.get(position).getLocation();
-        sportsDescription = data.get(position).getEventDescription();
-        time = data.get(position).getTime();
+        sportsType = data.get(position).getEvent_sporttype();
+        sportsTitle = data.get(position).getEvent_title();
+        sportsPeople = "Require People : " + data.get(position).getEvent_requirednum();
+        sportsLocation = "Location : " + data.get(position).getEvent_location();
+        sportsDescription = data.get(position).getEvent_description();
+        time = data.get(position).getEvent_time();
 
         switch(sportsType){
             case 1:
@@ -70,14 +71,27 @@ public class EventListAdapter extends RecyclerView.Adapter {
         myHolder.eventTitle.setText(sportsTitle);
         myHolder.requirePeople.setText(sportsPeople);
         myHolder.location.setText(sportsLocation);
-        myHolder.time.setText(time.toString());
+        myHolder.time.setText(time);
         myHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConfirmPaticipateDialog dialog;
-                ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(context, R.style.dialog). new Builder(context);
+                ConfirmPaticipateDialog dialog = new ConfirmPaticipateDialog(context, R.style.dialog);
+                ConfirmPaticipateDialog.Builder builder = dialog. new Builder(context);
+//              ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(context, R.style.dialog). new Builder(context);
+                dialog = builder.getDialog();
+                dialog.setEvent(data.get(position));
+                //dialog.printEvent();
+                Log.e("dialog before create: ", dialog.toString());
+                Log.e("dialog before create: ", dialog.event.toString());
                 dialog = builder.create();
+                //System.out.println("after create!!!:");
+                //dialog.printEvent();
+                Log.e("dialog after create: ", dialog.toString());
+                Log.e("dialog after create: ", dialog.event.toString());
                 dialog.show();
+                Log.e("adapter", data.get(position).getEvent_sporttype()+"");
+                Log.e("adapter", data.get(position).getEvent_creatorname()+"");
+                Log.e("adapter", data.get(position).getEvent_title()+"");
             }
         });
     }

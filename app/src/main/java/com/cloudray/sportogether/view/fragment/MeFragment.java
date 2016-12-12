@@ -114,7 +114,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_me, container, false);
-       // initRetrofit();
+        initRetrofit();
         findView(rootView);
         setListener();
         setAnimation();
@@ -123,7 +123,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
     public void initRetrofit(){
         retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl("http://52.43.221.21:8081/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userService = retrofit.create(UserService.class);
@@ -305,67 +305,70 @@ public class MeFragment extends Fragment implements View.OnClickListener{
             case R.id.fragment_me_nickname_edit_show_button:
                 String newNickName = nicknameText.getText().toString().trim();
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setNickname(newNickName);
-                Toast.makeText(getContext(), user.getUserName()+ " "+user.getPassword(),Toast.LENGTH_SHORT).show();
+                user.setUser_nickname(newNickName);
+                Toast.makeText(getContext(), user.getUser_name()+ " "+user.getUser_pwd(),Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-                //Call<User> call1 = userService.updateUser(user);
-//                call1.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call1 = userService.updateUser(user);
+                call1.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_sports_edit_show_button:
-                List<Integer> sportsInterested = new ArrayList<Integer>();
+                int sportsInterested = 0;
                 if(basketballCheckbox.isChecked())
-                    sportsInterested.add(1);
+                    sportsInterested += 1;
                 if(footballCheckbox.isChecked())
-                    sportsInterested.add(2);
+                    sportsInterested += 2;
                 if(runningCheckbox.isChecked())
-                    sportsInterested.add(3);
+                    sportsInterested += 4;
 
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setInterestedSprots(sportsInterested);
-                Toast.makeText(getContext(), user.getInterestedSprots()+ " ",Toast.LENGTH_SHORT).show();
+                user.setUser_interest(sportsInterested);
+                Toast.makeText(getContext(), user.getUser_interest()+ " ",Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-                //Call<User> call2 = userService.updateUser(user);
-//                call2.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call2 = userService.updateUser(user);
+                call2.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_age_edit_show_button:
                 String age = ageText.getText().toString().trim();
                 Integer ageInt = Integer.parseInt(age);
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setAge(ageInt);
-                Toast.makeText(getContext(), user.getAge()+ " ",Toast.LENGTH_SHORT).show();
+                user.setUser_age(ageInt);
+                Toast.makeText(getContext(), user.getUser_age()+ " ",Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-//                Call<User> call3 = userService.updateUser(user);
-//                call3.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call3 = userService.updateUser(user);
+                call3.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_gender_edit_show_button:
                 int newGender = -1;
@@ -376,75 +379,85 @@ public class MeFragment extends Fragment implements View.OnClickListener{
                 if(otherRadio.isChecked())
                     newGender = 2;
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setGender(newGender);
-                Toast.makeText(getContext(), user.getGender()+ " ",Toast.LENGTH_SHORT).show();
+                user.setUser_gender(newGender);
+                Toast.makeText(getContext(), user.getUser_gender()+ " ",Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-//                Call<User> call4 = userService.updateUser(user);
-//                call4.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call4 = userService.updateUser(user);
+                call4.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_phone_edit_show_button:
                 String newPhone = phoneText.getText().toString().trim();
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setPhone(newPhone);
-                Toast.makeText(getContext(), user.getPhone()+ " ",Toast.LENGTH_SHORT).show();
+                user.setUser_phone(newPhone);
+                Toast.makeText(getContext(), user.getUser_phone()+ " ",Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-//                Call<User> call5 = userService.updateUser(user);
-//                call5.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call5 = userService.updateUser(user);
+                call5.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_intro_edit_show_button:
                 String newIntro = introText.getText().toString().trim();
                 user = MySharedPreference.base64Decode((String)MySharedPreference.getData(getContext(), "user", " "));
-                user.setSelfIntro(newIntro);
-                Toast.makeText(getContext(), user.getSelfIntro()+ " ",Toast.LENGTH_SHORT).show();
+                user.setUser_selfintro(newIntro);
+                Toast.makeText(getContext(), user.getUser_selfintro()+ " ",Toast.LENGTH_SHORT).show();
                 MySharedPreference.storeData(getContext(), "user",  MySharedPreference.base64Encode(user));
-//                Call<User> call6 = userService.updateUser(user);
-//                call6.enqueue(new Callback<User>() {
-//                    @Override
-//                    public void onResponse(Call<User> call, Response<User> response) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<User> call, Throwable t) {
-//
-//                    }
-//                });
+                Call<User> call6 = userService.updateUser(user);
+                call6.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Toast.makeText(getContext(), "setting success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("me_fragment", "setting fail due to network failure" + t.toString());
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.fragment_me_current_event:
-                Call<Event> call7 = eventService.getCurrentEvents((String)MySharedPreference.getData(getContext(),"userid", ""));
+                Call<Event> call7 = eventService.getCurrentEvents((int)MySharedPreference.getData(getContext(),"userid", 0));
                 call7.enqueue(new Callback<Event>() {
                     @Override
                     public void onResponse(Call<Event> call, Response<Event> response) {
-                        ConfirmPaticipateDialog dialog;
-                        ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(getActivity(), R.style.dialog). new Builder(getActivity());
-                        dialog = builder.create();
+                        if(response.body() == null){
+                            Toast.makeText(getContext(), "no current event!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        ConfirmPaticipateDialog dialog = new ConfirmPaticipateDialog(getContext(), R.style.dialog);
+                        ConfirmPaticipateDialog.Builder builder = dialog. new Builder(getContext());
+                        dialog = builder.getDialog();
                         dialog.setEvent(response.body());
+                        dialog = builder.create();
                         dialog.show();
+                        Toast.makeText(getContext(), "get current event success!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Event> call, Throwable t) {
                         Log.e("get current event", "net work failure");
+                        Toast.makeText(getContext(), "setting fail due to network failure", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;

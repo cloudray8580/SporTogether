@@ -1,5 +1,6 @@
 package com.cloudray.sportogether.view.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,18 +33,25 @@ public class HistoryEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_event);
+        recyclerView = (RecyclerView)findViewById(R.id.activity_history_event_recycle_view);
 
-        /*
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.89.185.54:8000/") // need to change
+                .baseUrl("http://52.43.221.21:8081/") // need to change
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         EventService service = retrofit.create(EventService.class);
-        Call<List<Event>> call = service.getHistoryEvents((String) MySharedPreference.getData(this,"userid", "")); // need to change
+        Call<List<Event>> call = service.getHistoryEvents((int)MySharedPreference.getData(this,"userid", 0)); // need to change
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 events = response.body();
+                if(events == null || events.size() == 0){
+                    Intent intent = new Intent(HistoryEventActivity.this, HomeActivity.class);
+                    Toast.makeText(HistoryEventActivity.this, "no history events!", Toast.LENGTH_SHORT).show();
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(HistoryEventActivity.this));
+                mAdapter = new EventListAdapter(HistoryEventActivity.this, events);
+                recyclerView.setAdapter(mAdapter);
             }
 
             @Override
@@ -51,15 +59,11 @@ public class HistoryEventActivity extends AppCompatActivity {
                 Toast.makeText(HistoryEventActivity.this, "get history events failed", Toast.LENGTH_SHORT).show();
             }
         });
-        */
 
-        getData();
-        recyclerView = (RecyclerView)findViewById(R.id.activity_history_event_recycle_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new EventListAdapter(this, events);
-        recyclerView.setAdapter(mAdapter);
+        //getData();
     }
 
+    /*
     public void getData(){
         Event myEvent = new Event();
         myEvent.setCurrentPlayerNumber(2);
@@ -77,4 +81,5 @@ public class HistoryEventActivity extends AppCompatActivity {
 
         events = testList;
     }
+    */
 }

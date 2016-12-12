@@ -115,28 +115,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 viewPager.setCurrentItem(1);
                 break;
             case R.id.activity_home_float_add_button:
-//                Log.e("getThread--in main: ", Thread.currentThread().toString());
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("http://10.89.185.54:8000/")
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                TestMessageService service = retrofit.create(TestMessageService.class);
-//                Call<TestWechatMessage> call2 = service.getToken("cloudray", "lalala");
-//                call2.enqueue(new Callback<TestWechatMessage>() {
-//                    @Override
-//                    public void onResponse(Call<TestWechatMessage> call, Response<TestWechatMessage> response) {
-//                        Log.e("getThread--in response ", Thread.currentThread().toString());
-//                        //TestWechatMessage message = (TestWechatMessage)response.body();
-//                        Toast.makeText(HomeActivity.this, response.body().errcode+" "+response.body().errmsg, Toast.LENGTH_SHORT).show();
-//                        Log.e("my_retrofit", response.body().errcode+"  "+response.body().errmsg);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<TestWechatMessage> call, Throwable t) {
-//                        Toast.makeText(HomeActivity.this, "request failure!", Toast.LENGTH_SHORT).show();
-//                        Log.e("my_retrofit", t.toString());
-//                    }
-//                });
+                /*
+                Log.e("getThread--in main: ", Thread.currentThread().toString());
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.1.104:8000/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                TestMessageService service = retrofit.create(TestMessageService.class);
+                Call<TestWechatMessage> call2 = service.getToken1(new TestWechatMessage("1001","lalala"));
+                call2.enqueue(new Callback<TestWechatMessage>() {
+                    @Override
+                    public void onResponse(Call<TestWechatMessage> call, Response<TestWechatMessage> response) {
+                        Toast.makeText(HomeActivity.this, response.body().errcode+" "+response.body().errmsg, Toast.LENGTH_SHORT).show();
+                        Log.e("my_retrofit", response.body().errcode+"  "+response.body().errmsg);
+                    }
+
+                    @Override
+                    public void onFailure(Call<TestWechatMessage> call, Throwable t) {
+                        Toast.makeText(HomeActivity.this, "request failure!", Toast.LENGTH_SHORT).show();
+                        Log.e("my_retrofit", t.toString());
+                    }
+                });
+                */
 
                 // rotate
                 floatButton.startAnimation(clockwiseRotate);
@@ -168,6 +168,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.show();
 
                 //Toast.makeText(this, "fast participate pressed!", Toast.LENGTH_SHORT).show();
+
             default:
                 break;
         }

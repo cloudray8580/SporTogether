@@ -18,11 +18,14 @@ public interface UserService {
     @GET("user/get")
     Call<User> getUser(@Query("userid") String userid);
 
-    @POST("user/login")
-    Call<User> login(@Body User user);
+    @GET("user/login")
+    Call<User> login(@Query("user_id") String user_name, @Query("user_pwd") String user_pwd);
 
     @POST("user/add")
     Call<User> addUser(@Body User user);
+
+//    @POST("poll/test3")
+//    Call<User> addUser(@Body User user);
 
     @POST("user/update")
     Call<User> updateUser(@Body User user);

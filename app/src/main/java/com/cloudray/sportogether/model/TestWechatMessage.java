@@ -7,4 +7,9 @@ package com.cloudray.sportogether.model;
 public class TestWechatMessage {
     public String errcode;
     public String errmsg;
+
+    public TestWechatMessage(String a, String b){
+        this.errcode = a;
+        this.errmsg = b;
+    }
 }

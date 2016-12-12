@@ -12,15 +12,26 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.model.Event;
+import com.cloudray.sportogether.network.service.EventService;
+import com.cloudray.sportogether.network.service.UserService;
+import com.cloudray.sportogether.tools.MySharedPreference;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Cloud on 2016/11/26.
@@ -28,7 +39,7 @@ import com.cloudray.sportogether.model.Event;
 
 public class ConfirmPaticipateDialog extends Dialog {
 
-    Event event;
+    public Event event;
     TextView typeText, needText, spotText, timeText, hostText, callText, descriptionText, joinText;
 
     public ConfirmPaticipateDialog(Context context, int theme) {
@@ -42,6 +53,13 @@ public class ConfirmPaticipateDialog extends Dialog {
 
     public void setEvent(Event event){
         this.event = event;
+    }
+
+    public void printEvent(){
+        System.out.println("==============================");
+        System.out.println(event.getEvent_id());
+        System.out.println(event.getEvent_title());
+        System.out.println("==============================");
     }
 
     public class Builder{
@@ -85,8 +103,11 @@ public class ConfirmPaticipateDialog extends Dialog {
 //            LinearLayout container = (LinearLayout)layout.findViewById(R.id.dialog_event_confirm_container);
 //            container.setBackground(new BitmapDrawable(context.getResources(), screen));
 
-            //findView(layout);
-            //setMyText();
+            findView(layout);
+            Log.e("in create dialog", getDialog().toString());
+            Log.e("in create dialog", getDialog().event.toString());
+
+            setMyText();
 
             Window window = dialog.getWindow();
             WindowManager windowManager = (WindowManager)context.getSystemService(context.WINDOW_SERVICE);
@@ -117,12 +138,37 @@ public class ConfirmPaticipateDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     // call join method
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://52.43.221.21:8081/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    EventService service = retrofit.create(EventService.class);
+                    int userid = (int)MySharedPreference.getData(getContext(), "userid", 0);
+                    int eventid = getDialog().event.getEvent_id();
+                    Call<Event> call = service.joinEvent(userid, eventid);
+                    call.enqueue(new Callback<Event>() {
+                        @Override
+                        public void onResponse(Call<Event> call, Response<Event> response) {
+                            Toast.makeText(context, "join event success!", Toast.LENGTH_SHORT).show();
+                            Log.e("join event", "success");
+                        }
+
+                        @Override
+                        public void onFailure(Call<Event> call, Throwable t) {
+                            Toast.makeText(context, "join event failed!", Toast.LENGTH_SHORT).show();
+                            Log.e("join event", "failed: "+t.toString());
+                        }
+                    });
                 }
             });
         }
 
         public void setMyText(){
-            switch (event.getType()){
+            Event event = getDialog().event; // try to use outerclass.this.event
+            Log.e("in set my text ", event.getEvent_sporttype()+"");
+            Log.e("in set my text ", event.getEvent_requirednum()+"");
+            Log.e("in set my text ", event.getEvent_location()+"");
+            switch (event.getEvent_sporttype()){
                 case 1:
                     typeText.setText("Basketball");
                     break;
@@ -133,14 +179,15 @@ public class ConfirmPaticipateDialog extends Dialog {
                     typeText.setText("Running");
                     break;
                 default:
+                    typeText.setText("Basketball");
                     break;
             }
-            needText.setText(event.getRequiredPlayerNumber());
-            spotText.setText(event.getLocation());
-            timeText.setText(event.getTime().toString());
-            hostText.setText(event.getUserName());
-            callText.setText(event.getPhone());
-            descriptionText.setText(event.getEventDescription());
+            needText.setText(event.getEvent_requirednum()+"");
+            spotText.setText(event.getEvent_location());
+            timeText.setText(event.getEvent_time().toString());
+            hostText.setText(event.getEvent_creatorname());
+            callText.setText(event.getEvent_creatorphone());
+            descriptionText.setText(event.getEvent_description());
         }
 
         /*

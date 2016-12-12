@@ -12,154 +12,134 @@ import java.util.List;
 
 public class Event implements Serializable {
 
-    private String eventTitle;
+    private int event_id;
 
-    private String eventDescription;
+    private String event_title;
 
-    private int requiredPlayerNumber;
+    private String event_location;
 
-    private int currentPlayerNumber;
+    private double event_location_x;
 
-    private int type; // 1:basketball 2:football 3:run
+    private double event_location_y;
 
-    private String time;
+    private String event_description;
 
-    private String location;
+    private int event_sporttype; // 1:basketball 2:football 3:run
 
-    private double location_x;
+    private int event_requirednum;
 
-    private double location_y;
+    private int event_currentnum;
 
-    private boolean isValid;
+    private String event_time;
 
-    private String eventId;
+    private String event_creatorname; // creator
 
-    private String userId; // creator
+    private String event_creatorphone; // creator
 
-    private String userName; // creator
+    private int event_isValid;
 
-    private String phone; // creator
-
-    private List<String> participatorsId;
-
-    public List<String> getParticipatorsId() {
-        return participatorsId;
+    public int getEvent_isValid() {
+        return event_isValid;
     }
 
-    public void setParticipatorsId(List<String> participatorsId) {
-        this.participatorsId = participatorsId;
+    public void setEvent_isValid(int event_isValid) {
+        this.event_isValid = event_isValid;
     }
 
-    public String getTime() {
-        return time;
+    public String getEvent_creatorphone() {
+        return event_creatorphone;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setEvent_creatorphone(String event_creatorphone) {
+        this.event_creatorphone = event_creatorphone;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEvent_creatorname() {
+        return event_creatorname;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEvent_creatorname(String event_creatorname) {
+        this.event_creatorname = event_creatorname;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEvent_time() {
+        return event_time;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEvent_time(String event_time) {
+        this.event_time = event_time;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getEvent_currentnum() {
+        return event_currentnum;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setEvent_currentnum(int event_currentnum) {
+        this.event_currentnum = event_currentnum;
     }
 
-    public String getEventId() {
-        return eventId;
+    public int getEvent_requirednum() {
+        return event_requirednum;
     }
 
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
+    public void setEvent_requirednum(int event_requirednum) {
+        this.event_requirednum = event_requirednum;
     }
 
-    public String getEventTitle() {
-        return eventTitle;
+    public int getEvent_sporttype() {
+        return event_sporttype;
     }
 
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
+    public void setEvent_sporttype(int event_sporttype) {
+        this.event_sporttype = event_sporttype;
     }
 
-    public String getEventDescription() {
-        return eventDescription;
+    public String getEvent_description() {
+        return event_description;
     }
 
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public void setEvent_description(String event_description) {
+        this.event_description = event_description;
     }
 
-    public int getRequiredPlayerNumber() {
-        return requiredPlayerNumber;
+    public double getEvent_location_y() {
+        return event_location_y;
     }
 
-    public void setRequiredPlayerNumber(int requiredPlayerNumber) {
-        this.requiredPlayerNumber = requiredPlayerNumber;
+    public void setEvent_location_y(double event_location_y) {
+        this.event_location_y = event_location_y;
     }
 
-    public int getCurrentPlayerNumber() {
-        return currentPlayerNumber;
+    public double getEvent_location_x() {
+        return event_location_x;
     }
 
-    public void setCurrentPlayerNumber(int currentPlayerNumber) {
-        this.currentPlayerNumber = currentPlayerNumber;
+    public void setEvent_location_x(double event_location_x) {
+        this.event_location_x = event_location_x;
     }
 
-    public double getLocation_x() {
-        return location_x;
+    public String getEvent_location() {
+        return event_location;
     }
 
-    public void setLocation_x(double location_x) {
-        this.location_x = location_x;
+    public void setEvent_location(String event_location) {
+        this.event_location = event_location;
     }
 
-    public double getLocation_y() {
-        return location_y;
+    public String getEvent_title() {
+        return event_title;
     }
 
-    public void setLocation_y(double location_y) {
-        this.location_y = location_y;
+    public void setEvent_title(String event_title) {
+        this.event_title = event_title;
     }
 
-    public boolean isValid() {
-        return isValid;
+    public int getEvent_id() {
+        return event_id;
     }
 
-    public void setValid(boolean valid) {
-        isValid = valid;
+    public void setEvent_id(int event_id) {
+        this.event_id = event_id;
     }
 
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }
