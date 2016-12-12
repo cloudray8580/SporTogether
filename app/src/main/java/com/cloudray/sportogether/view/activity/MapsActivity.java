@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.cloudray.sportogether.R;
 import com.cloudray.sportogether.model.Event;
+import com.cloudray.sportogether.network.service.EventService;
 import com.cloudray.sportogether.tools.PermissionUtils;
 import com.cloudray.sportogether.view.dialog.ConfirmPaticipateDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -26,12 +27,20 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, GoogleMap.OnMarkerClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+    private List<Event> eventList;
 
 //    private ArrayList<Marker> markers;
 
@@ -98,9 +107,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
             return;
         }
+
+        /*
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://52.43.221.21:8081/").addConverterFactory(GsonConverterFactory.create()).build();
+        EventService service = retrofit.create(EventService.class);
+        Call<List<Event>> call = service.getAllEvents();
+        call.enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                eventList = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+
+            }
+        });
+        */
+
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
+
+            /*
+            for(int i = 0; i < eventList.size(); i++){
+                LatLng marker0 = new LatLng(eventList.get(i).getEvent_location_x()+0.001, eventList.get(i).getEvent_location_y()+0.001);
+                mMap.addMarker(new MarkerOptions().position(marker0).title(i+""));
+            }
+            */
+
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()),15));
 
             // Add some marker
@@ -150,6 +185,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+//        int id = Integer.parseInt(marker.getTitle());
+//        ConfirmPaticipateDialog dialog = new ConfirmPaticipateDialog(this, R.style.dialog);
+//        ConfirmPaticipateDialog.Builder builder = dialog. new Builder(this);
+//        dialog = builder.getDialog();
+//        dialog.setEvent(eventList.get(id));
+//        dialog = builder.create();
+//        dialog.show();
+
         ConfirmPaticipateDialog dialog;
         ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(this, R.style.dialog). new Builder(this);
         dialog = builder.create();
