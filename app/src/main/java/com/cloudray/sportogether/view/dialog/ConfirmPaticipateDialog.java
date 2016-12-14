@@ -1,3 +1,6 @@
+// # CSIT 5510     # Li Zhe        20386967    zlicx@connect.ust.hk
+// # CSIT 5510     # Zhang Chen    20399782    jxzcv.zhang@connect.ust.hk
+// # CSIT 5510     # Zhao Shixiong 20402060    szhaoag@connect.ust.hk
 package com.cloudray.sportogether.view.dialog;
 
 import android.app.Dialog;
@@ -104,8 +107,8 @@ public class ConfirmPaticipateDialog extends Dialog {
 //            container.setBackground(new BitmapDrawable(context.getResources(), screen));
 
             findView(layout);
-            Log.e("in create dialog", getDialog().toString());
-            Log.e("in create dialog", getDialog().event.toString());
+//            Log.e("in create dialog", getDialog().toString());
+//            Log.e("in create dialog", getDialog().event.toString());
 
             setMyText();
 

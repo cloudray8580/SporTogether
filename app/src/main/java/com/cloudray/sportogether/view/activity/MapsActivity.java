@@ -1,3 +1,6 @@
+// # CSIT 5510     # Li Zhe        20386967    zlicx@connect.ust.hk
+// # CSIT 5510     # Zhang Chen    20399782    jxzcv.zhang@connect.ust.hk
+// # CSIT 5510     # Zhao Shixiong 20402060    szhaoag@connect.ust.hk
 package com.cloudray.sportogether.view.activity;
 
 import android.Manifest;
@@ -193,13 +196,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        dialog = builder.create();
 //        dialog.show();
 
-        ConfirmPaticipateDialog dialog;
-        ConfirmPaticipateDialog.Builder builder = new ConfirmPaticipateDialog(this, R.style.dialog). new Builder(this);
-        dialog = builder.create();
+        ConfirmPaticipateDialog dialog = new ConfirmPaticipateDialog(this, R.style.dialog);
+        ConfirmPaticipateDialog.Builder builder =  dialog. new Builder(this);
+        dialog = builder.getDialog();
         Event event = new Event();
+        event.setEvent_creatorname("Richie");
+        event.setEvent_requirednum(5);
+        event.setEvent_description("welcome to join!");
+        event.setEvent_location("school gym");
+        event.setEvent_sporttype(1);
         event.setEvent_location_x(marker.getPosition().longitude);
         event.setEvent_location_y(marker.getPosition().latitude);
         dialog.setEvent(event);
+        dialog = builder.create();
         dialog.show();
         return false;
     }

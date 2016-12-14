@@ -1,3 +1,6 @@
+// # CSIT 5510     # Li Zhe        20386967    zlicx@connect.ust.hk
+// # CSIT 5510     # Zhang Chen    20399782    jxzcv.zhang@connect.ust.hk
+// # CSIT 5510     # Zhao Shixiong 20402060    szhaoag@connect.ust.hk
 package com.cloudray.sportogether.view.activity;
 
 import android.content.Intent;
@@ -73,7 +76,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public boolean checkValidate(String username, String password){
         if (username == null || username == "" || password == null || password == "")
             return false;
-        return true;
+        else
+            return true;
     }
 
     @Override
@@ -98,6 +102,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     call.enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
+                            if(response.body().getUser_name() == null){
+                                Toast.makeText(LoginActivity.this, "account or password incorrect", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
                             Log.e("login_activity", response.body().toString());
                             Log.e("login_activity", response.body().getUser_id()+"");
                             Log.e("login_activity", response.body().getUser_name());
